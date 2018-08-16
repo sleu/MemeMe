@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,43 +19,71 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KoU-ku-zuh" userLabel="BottomToolbar">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoU-ku-zuh" userLabel="BottomToolbar">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="R78-Zr-yKj"/>
+                                    <barButtonItem systemItem="camera" id="pY8-ky-aMd" userLabel="Camera"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="g8y-N2-MIh"/>
                                     <barButtonItem title="Album" id="Ggc-2b-fht" userLabel="Album">
                                         <connections>
                                             <action selector="selectImage:" destination="BYZ-38-t0r" id="O0O-cj-QmO"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Camera" id="pY8-ky-aMd" userLabel="Camera"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JLf-gA-cpW"/>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ci0-NY-MrX">
-                                <rect key="frame" x="0.0" y="141" width="375" height="482"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ci0-NY-MrX">
+                                <rect key="frame" x="0.0" y="65" width="375" height="559"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.66711597710000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.66711597711267601" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-4h-gqO" userLabel="TopTextField">
-                                <rect key="frame" x="139" y="103" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-4h-gqO" userLabel="TopTextField">
+                                <rect key="frame" x="187" y="20" width="49" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXL-eE-Fku" userLabel="BottomTextField">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="BOTTOM" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXL-eE-Fku" userLabel="BottomTextField">
                                 <rect key="frame" x="139" y="580" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iG-fR-aeN" userLabel="TopToolbar">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="action" id="8Ma-Wg-oqh"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="pFr-jb-UoJ"/>
+                                    <barButtonItem systemItem="cancel" id="ldx-5q-VYa"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="9iG-fR-aeN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2cn-PZ-if9"/>
+                            <constraint firstItem="Dac-4h-gqO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="firstBaseline" constant="20" id="71y-05-25p"/>
+                            <constraint firstItem="Dac-4h-gqO" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="trailing" id="Aep-Q3-URu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ci0-NY-MrX" secondAttribute="trailing" id="BBe-L9-dmM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9iG-fR-aeN" secondAttribute="trailing" id="MfE-Va-HFt"/>
+                            <constraint firstItem="ci0-NY-MrX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XH5-30-Vsf"/>
+                            <constraint firstItem="ci0-NY-MrX" firstAttribute="bottom" secondItem="KoU-ku-zuh" secondAttribute="top" constant="1" id="Zab-kJ-VI8"/>
+                            <constraint firstItem="9iG-fR-aeN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aeW-gZ-29F"/>
+                            <constraint firstItem="Dac-4h-gqO" firstAttribute="centerX" secondItem="ci0-NY-MrX" secondAttribute="centerX" id="dAG-lx-djr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KoU-ku-zuh" secondAttribute="trailing" id="ivE-KK-mLi"/>
+                            <constraint firstItem="KoU-ku-zuh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kL8-ep-4X7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KoU-ku-zuh" secondAttribute="bottom" id="nf9-Nq-MrH"/>
+                            <constraint firstItem="ci0-NY-MrX" firstAttribute="top" secondItem="9iG-fR-aeN" secondAttribute="bottom" constant="1" id="vm0-qx-jAb"/>
+                            <constraint firstItem="Dac-4h-gqO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="leading" id="zv8-R6-HYG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bottomTextField" destination="cXL-eE-Fku" id="Iab-5q-2IP"/>
                         <outlet property="cameraButton" destination="pY8-ky-aMd" id="NnL-aj-xLy"/>
                         <outlet property="selectedImageView" destination="ci0-NY-MrX" id="Ydv-rm-q92"/>
+                        <outlet property="topTextField" destination="Dac-4h-gqO" id="rld-xx-FUO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
