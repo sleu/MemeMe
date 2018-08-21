@@ -14,8 +14,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
+    @IBOutlet weak var topToolbar: UIToolbar!
+    @IBOutlet weak var bottomToolbar: UIToolbar!
+    @IBOutlet weak var cancel: UIBarButtonItem!
+    @IBOutlet weak var actionShare: UIBarButtonItem!
     
     
+    let textFieldDelegate = TextFieldDelegate()
+    
+    struct Meme{
+        let topText: String
+        let bottomText: String
+        let originalImage: UIImage
+        let memedImage: UIImage
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +47,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
         
+        //setting delegate
+        self.topTextField.delegate = self.textFieldDelegate
+        self.bottomTextField.delegate = self.textFieldDelegate
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        shareButtonStatus(false)
         subscribeToKeyboardNotifications()
     }
     
@@ -54,6 +71,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
+        shareButtonStatus(true)
     }
     
     @IBAction func selectImageFromCamera(_sender: Any){
@@ -61,6 +79,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
         present(imagePicker, animated: true, completion: nil)
+        shareButtonStatus(true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -103,6 +122,61 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
+    func save() -> UIImage{
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: generateMemedImage())
+        
+        return meme.memedImage
+    }
+    
+    //create image
+    func generateMemedImage() -> UIImage {
+        
+        //hide toolbar
+        self.topToolbar.isHidden = true
+        self.bottomToolbar.isHidden = true
+        
+        //render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        //show toolbar
+        self.topToolbar.isHidden = false
+        self.bottomToolbar.isHidden = false
+        
+        return memedImage
+    }
+    
+    //share button on/off
+    func shareButtonStatus(_ status: Bool){
+        if status == true{
+            actionShare.isEnabled = true
+        } else {
+            actionShare.isEnabled = false
+        }
+    }
+    
+    //share button triggers save
+    @IBAction func share(_ sender: Any) {
+        let memed = [save()]
+        let activityViewController = UIActivityViewController(activityItems: memed, applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+        activityViewController.completionWithItemsHandler = {(activityType, success, items, error) in
+            if success{
+                print("ok cool")
+            }
+            
+            self.reset()
+        }
+    }
+    //returns to default
+    func reset(){
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
+        selectedImageView.image = nil
+        shareButtonStatus(false)
+    }
     
 }
 

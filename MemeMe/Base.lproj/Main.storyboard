@@ -38,15 +38,8 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.66711597710000003" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.66711597711267601" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <textField contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-4h-gqO" userLabel="TopTextField">
-                                <rect key="frame" x="187" y="20" width="49" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="BOTTOM" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXL-eE-Fku" userLabel="BottomTextField">
-                                <rect key="frame" x="139" y="580" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="cXL-eE-Fku" userLabel="BottomTextField">
+                                <rect key="frame" x="155.5" y="593" width="64" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -54,23 +47,37 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iG-fR-aeN" userLabel="TopToolbar">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="8Ma-Wg-oqh"/>
+                                    <barButtonItem systemItem="action" id="8Ma-Wg-oqh">
+                                        <connections>
+                                            <action selector="share:" destination="BYZ-38-t0r" id="ODh-u4-Xfc"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="pFr-jb-UoJ"/>
                                     <barButtonItem systemItem="cancel" id="ldx-5q-VYa"/>
                                 </items>
                             </toolbar>
+                            <textField contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-4h-gqO" userLabel="TopTextField">
+                                <rect key="frame" x="171.5" y="85" width="32" height="17"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9iG-fR-aeN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2cn-PZ-if9"/>
-                            <constraint firstItem="Dac-4h-gqO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="firstBaseline" constant="20" id="71y-05-25p"/>
+                            <constraint firstItem="cXL-eE-Fku" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="trailing" id="2dw-Rt-qbx"/>
+                            <constraint firstItem="Dac-4h-gqO" firstAttribute="top" secondItem="ci0-NY-MrX" secondAttribute="firstBaseline" constant="20" id="71y-05-25p"/>
+                            <constraint firstItem="cXL-eE-Fku" firstAttribute="centerX" secondItem="ci0-NY-MrX" secondAttribute="centerX" id="7gO-fq-4N1"/>
                             <constraint firstItem="Dac-4h-gqO" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="trailing" id="Aep-Q3-URu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ci0-NY-MrX" secondAttribute="trailing" id="BBe-L9-dmM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9iG-fR-aeN" secondAttribute="trailing" id="MfE-Va-HFt"/>
                             <constraint firstItem="ci0-NY-MrX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XH5-30-Vsf"/>
+                            <constraint firstItem="cXL-eE-Fku" firstAttribute="bottom" secondItem="KoU-ku-zuh" secondAttribute="firstBaseline" constant="-13" id="Y5R-Ov-NQM"/>
                             <constraint firstItem="ci0-NY-MrX" firstAttribute="bottom" secondItem="KoU-ku-zuh" secondAttribute="top" constant="1" id="Zab-kJ-VI8"/>
                             <constraint firstItem="9iG-fR-aeN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aeW-gZ-29F"/>
                             <constraint firstItem="Dac-4h-gqO" firstAttribute="centerX" secondItem="ci0-NY-MrX" secondAttribute="centerX" id="dAG-lx-djr"/>
+                            <constraint firstItem="cXL-eE-Fku" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ci0-NY-MrX" secondAttribute="leading" id="g90-Mv-zf8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KoU-ku-zuh" secondAttribute="trailing" id="ivE-KK-mLi"/>
                             <constraint firstItem="KoU-ku-zuh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kL8-ep-4X7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KoU-ku-zuh" secondAttribute="bottom" id="nf9-Nq-MrH"/>
@@ -80,10 +87,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="actionShare" destination="8Ma-Wg-oqh" id="J3n-gA-c8O"/>
                         <outlet property="bottomTextField" destination="cXL-eE-Fku" id="Iab-5q-2IP"/>
-                        <outlet property="cameraButton" destination="pY8-ky-aMd" id="NnL-aj-xLy"/>
+                        <outlet property="bottomToolbar" destination="KoU-ku-zuh" id="ItV-8D-gIF"/>
+                        <outlet property="cameraButton" destination="pY8-ky-aMd" id="4He-uU-ps3"/>
+                        <outlet property="cancel" destination="ldx-5q-VYa" id="KnS-FQ-Nmg"/>
                         <outlet property="selectedImageView" destination="ci0-NY-MrX" id="Ydv-rm-q92"/>
                         <outlet property="topTextField" destination="Dac-4h-gqO" id="rld-xx-FUO"/>
+                        <outlet property="topToolbar" destination="9iG-fR-aeN" id="kWB-js-nZN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
