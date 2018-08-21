@@ -53,7 +53,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="pFr-jb-UoJ"/>
-                                    <barButtonItem systemItem="cancel" id="ldx-5q-VYa"/>
+                                    <barButtonItem systemItem="cancel" id="ldx-5q-VYa">
+                                        <connections>
+                                            <action selector="cancel:" destination="BYZ-38-t0r" id="giV-ca-r9D"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <textField contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="Dac-4h-gqO" userLabel="TopTextField">

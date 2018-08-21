@@ -21,6 +21,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     let textFieldDelegate = TextFieldDelegate()
+    var shareStatus = false
     
     struct Meme{
         let topText: String
@@ -56,7 +57,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        shareButtonStatus(false)
+        
+        if(!shareStatus){
+            actionShare.isEnabled = false
+        } else{
+            actionShare.isEnabled = true
+        }
         subscribeToKeyboardNotifications()
     }
     
@@ -71,7 +77,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
-        shareButtonStatus(true)
+        shareStatus = true
     }
     
     @IBAction func selectImageFromCamera(_sender: Any){
@@ -79,7 +85,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
         present(imagePicker, animated: true, completion: nil)
-        shareButtonStatus(true)
+        shareStatus = true
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -123,7 +130,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func save() -> UIImage{
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: generateMemedImage())
+        let memeImage = generateMemedImage()
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: memeImage)
         
         return meme.memedImage
     }
@@ -148,20 +156,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
     }
     
-    //share button on/off
-    func shareButtonStatus(_ status: Bool){
-        if status == true{
-            actionShare.isEnabled = true
-        } else {
-            actionShare.isEnabled = false
-        }
-    }
-    
     //share button triggers save
     @IBAction func share(_ sender: Any) {
-        let memed = [save()]
-        let activityViewController = UIActivityViewController(activityItems: memed, applicationActivities: nil)
+        let memed = save()
+        let activityViewController = UIActivityViewController(activityItems: [memed], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
+        if let popOver = activityViewController.popoverPresentationController{
+            popOver.sourceView = self.view
+        }
         activityViewController.completionWithItemsHandler = {(activityType, success, items, error) in
             if success{
                 print("ok cool")
@@ -175,7 +177,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         selectedImageView.image = nil
-        shareButtonStatus(false)
+        shareStatus = false
+        actionShare.isEnabled = false
+    }
+    @IBAction func cancel(_ sender: Any) {
+        self.reset()
     }
     
 }
