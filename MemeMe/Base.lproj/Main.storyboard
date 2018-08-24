@@ -23,7 +23,11 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="R78-Zr-yKj"/>
-                                    <barButtonItem systemItem="camera" id="pY8-ky-aMd" userLabel="Camera"/>
+                                    <barButtonItem systemItem="camera" id="pY8-ky-aMd" userLabel="Camera">
+                                        <connections>
+                                            <action selector="selectImageFromCameraWith_sender:" destination="BYZ-38-t0r" id="3uQ-t8-SWb"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="g8y-N2-MIh"/>
                                     <barButtonItem title="Album" id="Ggc-2b-fht" userLabel="Album">
                                         <connections>

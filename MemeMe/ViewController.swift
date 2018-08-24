@@ -32,10 +32,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //set textlabel initial text
-        //set textlabel Impact font, all caps, white with a black outline use defaultTextAttributes
-        //textFieldDidBeginEditing to clear text field of Default text only not user entered text
-        //textfieldshouldreturn to dismiss keyboard
         
         //text field attributes
         let memeTextAttributes:[String: Any] = [
@@ -51,19 +47,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //setting delegate
         self.topTextField.delegate = self.textFieldDelegate
         self.bottomTextField.delegate = self.textFieldDelegate
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        subscribeToKeyboardNotifications()
         
+        //enables share button
         if(!shareStatus){
             actionShare.isEnabled = false
         } else{
             actionShare.isEnabled = true
         }
-        subscribeToKeyboardNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,6 +76,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         shareStatus = true
     }
     
+    //select image from camera
     @IBAction func selectImageFromCamera(_sender: Any){
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -101,13 +98,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    //move frame when keyboard appears
+    //move frame when keyboard appears for bottom text
     @objc func keyboardWillShow(_ notification:Notification){
-        view.frame.origin.y = -getKeyboardHeight(notification)
+        if bottomTextField.isEditing{
+            view.frame.origin.y = -getKeyboardHeight(notification)
+        }
+        
     }
-    
+
     @objc func keyboardWillHide(_ notification:Notification){
-        view.frame.origin.y = 0
+        if bottomTextField.isEditing{
+            view.frame.origin.y = 0
+        }
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
@@ -115,6 +117,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
+    
     //keyboard sign up to be notified
     func subscribeToKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
@@ -128,10 +131,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
-    
-    func save() -> UIImage{
-        let memeImage = generateMemedImage()
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: memeImage)
+    //save to struct
+    func save(_ memed: UIImage) -> UIImage{
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: memed)
         
         return meme.memedImage
     }
@@ -158,7 +160,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //share button triggers save
     @IBAction func share(_ sender: Any) {
-        let memed = save()
+        let memed = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memed], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
         if let popOver = activityViewController.popoverPresentationController{
@@ -166,10 +168,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         activityViewController.completionWithItemsHandler = {(activityType, success, items, error) in
             if success{
-                print("ok cool")
+                self.share(memed)
+                self.reset()
             }
-            
-            self.reset()
         }
     }
     //returns to default
