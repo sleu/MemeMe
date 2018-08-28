@@ -22,6 +22,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let textFieldDelegate = TextFieldDelegate()
     var shareStatus = false
+    let topText = "TOP"
+    let bottomText = "BOTTOM"
     
     struct Meme{
         let topText: String
@@ -32,21 +34,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //text field attributes
-        let memeTextAttributes:[String: Any] = [
-            NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
-            NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSAttributedStringKey.strokeWidth.rawValue: 10,
-        ]
-        //setting default text field attributes
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        //setting delegate
-        self.topTextField.delegate = self.textFieldDelegate
-        self.bottomTextField.delegate = self.textFieldDelegate
+        setupTextField(topTextField, topText)
+        setupTextField(bottomTextField, bottomText)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,13 +66,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //select image from camera
-    @IBAction func selectImageFromCamera(_sender: Any){
+    @IBAction func selectImageFromCamera(_ sender: Any){
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .camera
         present(imagePicker, animated: true, completion: nil)
         shareStatus = true
-        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -183,6 +172,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     @IBAction func cancel(_ sender: Any) {
         self.reset()
+    }
+    
+    func setupTextField(_ tf: UITextField,_ text: String){ //TODO: adjust black outline
+       //textfield attributes
+        tf.defaultTextAttributes = [
+            NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.black,
+            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSAttributedStringKey.strokeWidth.rawValue: -4.0,]
+        tf.textColor = UIColor.white
+        tf.tintColor = UIColor.white
+        tf.textAlignment = .center
+        tf.text = text
+        tf.delegate = self.textFieldDelegate
     }
     
 }
