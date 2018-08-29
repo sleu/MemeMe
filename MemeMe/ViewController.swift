@@ -119,10 +119,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //save to struct
-    func save(_ memed: UIImage) -> UIImage{
+    func save(_ memed: UIImage){
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: memed)
-        
-        return meme.memedImage
     }
     
     //create image
@@ -155,7 +153,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         activityViewController.completionWithItemsHandler = {(activityType, success, items, error) in
             if success{
-                let saved = self.save(memed)
+                self.save(memed)
                 self.reset()
             }
         }
