@@ -58,20 +58,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //select image from album
     @IBAction func selectImage(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
-        shareStatus = true
+        imagePicker(.photoLibrary)
     }
     
     //select image from camera
     @IBAction func selectImageFromCamera(_ sender: Any){
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        imagePicker(.camera)
+    }
+    func imagePicker(_ type: UIImagePickerControllerSourceType){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = type
+        present(picker, animated: true, completion: nil)
         shareStatus = true
     }
     
@@ -157,7 +155,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         activityViewController.completionWithItemsHandler = {(activityType, success, items, error) in
             if success{
-                self.share(memed)
+                let saved = self.save(memed)
                 self.reset()
             }
         }
