@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CreateMemeViewController.swift
 //  MemeMe
 //
 //  Created by Sean Leu on 8/10/18.
@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+
+class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var selectedImageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -24,13 +26,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var shareStatus = false
     let topText = "TOP"
     let bottomText = "BOTTOM"
-    
-    struct Meme{
-        let topText: String
-        let bottomText: String
-        let originalImage: UIImage
-        let memedImage: UIImage
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +116,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //save to struct
     func save(_ memed: UIImage){
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: selectedImageView.image!, memedImage: memed)
+        
+        //add to memes array in appdeledate
+        (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
     }
     
     //create image
@@ -170,7 +168,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.reset()
     }
     
-    func setupTextField(_ tf: UITextField,_ text: String){ //TODO: adjust black outline
+    func setupTextField(_ tf: UITextField,_ text: String){
        //textfield attributes
         tf.defaultTextAttributes = [
             NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
