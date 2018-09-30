@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var selectedImageView: UIImageView!
@@ -163,6 +161,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         selectedImageView.image = nil
         shareStatus = false
         actionShare.isEnabled = false
+        dismiss(animated: true, completion: nil)
     }
     @IBAction func cancel(_ sender: Any) {
         self.reset()
